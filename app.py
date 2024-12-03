@@ -16,6 +16,21 @@ if test_file and pratical_file and  exam_file:
     exam_score = pd.read_excel(exam_file)
     st.write("Files upload successfully!")
 
+# Merge Logic
+if test_file and pratical_file and exam_file:
+
+#Clean and renamme columns
+    test_score.renamme(columns={'Reg. no': 'RegNo'}, inplace=True)
+    practical_score.renamme(columns={'Reg. no': 'RegNo'}, inplace=True)
+    exam_score.renamme(columns={'MATRIC NO': 'RegNo'}, inplace=True)
+
+    # Combine name fields in exam_scores
+    exam_score['Name'] = (exam_score['SURNAME'] + "" + exam_score['FIRSTNAME'] + "" + exam_score['MIDDLENAME'])
+    exam_score[['RegNo', 'Name', 'Exam']]
+
+    # Merge dataframes
+    merged_data = pd.merge(test_score, practical_score, on='RegNo', how='outer')
+    final_result = pd.merge(merged_data, exam_score, on='RegNo', how='outer')
 
 
     
