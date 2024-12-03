@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import io
 
 st.title("Student Result Merger")
 st.write("Upload your spreadsheet below:")
@@ -34,10 +35,22 @@ if test_file and lab_file and exam_file:
 
     #Reoder columns
     final_result = final_result[['S/N', 'Name', 'RegNo', 'Test', 'Lab_score', 'Exam']]
-    st.write("Result Consoolidation Successful!")
+    st.write("Result Consolidation Successful!")
     st.dataframe(final_result)
 
+# Download merged result as excel
 
+    output = io.BytesIO()
+    with pd.ExcelWriter(output, engine='xlsxwriter') as writer: final_result.to_excel(writer, index=False, sheet_name='Results') 
+    output.seek(0)
+    st.download_button(
+        label="Download Excel File", 
+        data=output,
+        file_name= "ABC",
+        mime="application/vnd.ms-excel")
+file_name = "ABC", mime = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+
+    
 
 
 
