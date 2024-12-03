@@ -21,12 +21,12 @@ if test_file and lab_file and  exam_file:
 if test_file and lab_file and exam_file:
 
 #Clean and renamme columns
-    test_score.renamme(columns={'Reg. no': 'RegNo'}, inplace=True)
-    Lab_score.renamme(columns={'Reg. no': 'RegNo'}, inplace=True)
-    exam_score.renamme(columns={'MATRIC NO': 'RegNo'}, inplace=True)
+    test_score.rename(columns={'Reg. no': 'RegNo'}, inplace=True)
+    Lab_score.rename(columns={'Reg. no': 'RegNo'}, inplace=True)
+    exam_score.rename(columns={'MATRIC NO': 'RegNo'}, inplace=True)
 
     # Combine name fields in exam_scores
-    exam_score['Name'] = (exam_score['SURNAME'] + "" + exam_score['FIRSTNAME'] + "" + exam_score['MIDDLENAME'])
+    exam_score['Name'] = (exam_score['SURNAME'] + " " + exam_score['FIRSTNAME'] + " " + exam_score['MIDDLENAME'])
     exam_score[['RegNo', 'Name', 'Exam']]
 
     # Merge dataframes
