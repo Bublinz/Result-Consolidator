@@ -42,13 +42,14 @@ if test_file and lab_file and exam_file:
 
     output = io.BytesIO()
     with pd.ExcelWriter(output, engine='xlsxwriter') as writer: final_result.to_excel(writer, index=False, sheet_name='Results') 
-    output.seek(0)
+    output.seek(0),
     st.download_button(
         label="Download Excel File", 
         data=output,
-        file_name= "ABC",
-        mime="application/vnd.ms-excel")
-file_name = "ABC", mime = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        file_name= "ABC.xlsx",
+        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    )
+
 
     
 
