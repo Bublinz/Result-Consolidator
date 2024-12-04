@@ -36,7 +36,7 @@ if test_file and lab_file and exam_file and ogr_template_file:
     
     # Proceed with processing
     exam_scores['Candidates Name'] = (exam_scores['SURNAME'] + " " + exam_scores['FIRSTNAME'] + " " + exam_scores['MIDDLENAME'])
-    exam_scores[['Candidates Name', 'RegNo', 'EXAM SCORE']]
+    # exam_scores[['Candidates Name', 'RegNo', 'EXAM SCORE']]
 
     # Merge dataframes
     merged_data = pd.merge(test_score, Lab_score, on='RegNo', how='outer')
@@ -51,8 +51,14 @@ if test_file and lab_file and exam_file and ogr_template_file:
     # Drop rows where all score columns are empty
     final_result = final_result.dropna(subset=['TEST', 'LAB', 'EXAM SCORE'], how='all')
 
+   
+    # Convert all names to uppercase and sort by Name
+    final_result['Candidates Name'] = final_result['Candidates Name'].str.upper()
+    final_result = final_result.sort_values(by='Candidates Name').reset_index(drop=True)
 
-    st.write("Result Consolidation Successful!")
+
+
+    st.write("Result Consolidation Successful! Please Preview Below")
     st.dataframe(final_result)
 
 # Download merged result as excel
