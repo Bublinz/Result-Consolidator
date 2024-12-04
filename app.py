@@ -60,8 +60,19 @@ if test_file and lab_file and exam_file:
 
     # Write final result into Sheet1 of OGR_template
     for row_idx, row_data in enumerate(final_result.values, start=2):  # Start writing from the 2nd row
-        for col_idx, value in enumerate(row_data, start=1):  # Write to each column
-            Sheet1.cell(row=row_idx, column=col_idx, value=value)
+        # for col_idx, value in enumerate(row_data, start=1):  # Write to each column
+      # Extract columns from the final_result DataFrame
+        name, reg_no, test, practical_score, exam_score = row_data
+
+        # Write data to specific columns
+        # Sheet1.cell(row=row_idx, column=1, value=sn)                # 1st column: SN
+        Sheet1.cell(row=row_idx, column=2, value=name)              # 2nd column: Name
+        Sheet1.cell(row=row_idx, column=3, value=reg_no)            # 3rd column: Registration Number
+        # Leave 4th column empty
+        Sheet1.cell(row=row_idx, column=5, value=test)              # 5th column: Test
+        Sheet1.cell(row=row_idx, column=6, value=practical_score)   # 6th column: Practical Score (Lab) 
+        Sheet1.cell(row=row_idx, column=7, value=exam_score)   # 7th column: Exam Score (Lab)  
+        #Sheet1.cell(row=row_idx, column=col_idx, value=value)
 
 
      # Save the updated template into an in-memory file
