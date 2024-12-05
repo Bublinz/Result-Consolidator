@@ -34,10 +34,7 @@ if exam_file:
                 continue
 
             # Extract specific columns by position
-            extracted_data = data.iloc[:, [2, 7, 8, 10, 13]]  # C, H, I, K, N
-
-            # Set column names for clarity
-            extracted_data.columns = ['C', 'H', 'I', 'K', 'N']
+            extracted_data = data.iloc[:, [1, 2, 7, 8, 10, 13]]  # B, C, H, I, K, N
 
             # Drop rows where all selected columns are empty
             extracted_data.dropna(how='all', inplace=True)
@@ -45,7 +42,7 @@ if exam_file:
             # Save the sheet data to an in-memory file
             output_file = BytesIO()
             with pd.ExcelWriter(output_file, engine="openpyxl") as writer:
-                extracted_data.to_excel(writer, sheet_name=sheet_name, index=False)
+                extracted_data.to_excel(writer, sheet_name=sheet_name, index=False, header=False)
 
             # Add the in-memory file to a dictionary for download
             processed_sheets[sheet_name] = output_file.getvalue()
